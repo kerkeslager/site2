@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-rm -rf site
-cp -r site_source site
+rsync -rtuc --delete site_source/ site/

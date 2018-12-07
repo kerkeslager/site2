@@ -11,7 +11,8 @@ sudo mkdir -p /var/www/kerkeslager.com/html
 sudo chown -R $USER:$USER /var/www/kerkeslager.com/html
 
 ./generate.sh
-sudo cp -r site/* /var/www/kerkeslager.com/html/
+sudo mkdir -p /var/www/kerkeslager.com/html
+sudo rsync -rtuc --delete site/ /var/www/kerkeslager.com/html/
 
 sudo cp nginx_configuration /etc/nginx/sites-available/kerkeslager.com
 sudo ln -sf /etc/nginx/sites-available/kerkeslager.com /etc/nginx/sites-enabled/
