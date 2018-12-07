@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-yes | rm -r site
+rm -rf site
 cp -r site_source site
