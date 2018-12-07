@@ -3,9 +3,9 @@ server {
   listen [::]:80;
 
   root /var/www/kerkeslager.com/html;
-  index index.html index.htm index.nginx-debian.html;
+  index index.html;
 
-  server_name kerkeslager.com www.kerkeslager.com;
+  server_name kerkeslager.com;
 
   location / {
     try_files $uri $uri/ =404;
