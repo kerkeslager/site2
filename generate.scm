@@ -1,8 +1,10 @@
 #!/usr/local/bin/guile -s
 !#
 
-(display (current-filename))
-(newline)
+(define (dir-join . args)
+  (if (null? (cdr args))
+      (car args)
+      (string-append (car args) file-name-separator-string (apply dir-join (cdr args)))))
 
 (define (call-with-input-dir path proc)
   (let
@@ -11,7 +13,7 @@
     (closedir dir)))
 
 (call-with-input-dir
-  (dirname (current-filename))
+  (dir-join (dirname (current-filename)) "site")
   (lambda (dir)
     (do ((entry (readdir dir) (readdir dir)))
       ((eof-object? entry))
