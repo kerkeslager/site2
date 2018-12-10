@@ -23,6 +23,19 @@
 (define (path->list path)
   (call-with-input-dir path dir->list))
 
+(define (flatten xss)
+  (if (null? xss)
+      '()
+      (append (car xss) (flatten (cdr xss)))))
+
+(define (fs-find path)
+  (cond ((equal? "." (basename path)) '())
+        ((equal? ".." (basename path)) '())
+        ((eq? (stat:type (stat path)) 'regular) (cons path '()))
+        ((eq? (stat:type (stat path)) 'directory)
+         (flatten (map (lambda (p) (fs-find (dir-join path p))) (path->list path))))))
+
+
 (define (display-list xs)
   (for-each
     (lambda (x)
@@ -30,4 +43,4 @@
       (newline))
     xs))
 
-(display-list (path->list (dir-join (dirname (current-filename)) "site")))
+(display-list (fs-find (dir-join (dirname (current-filename)) "site")))
