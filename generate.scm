@@ -7,15 +7,27 @@
       (string-append (car args) file-name-separator-string (apply dir-join (cdr args)))))
 
 (define (call-with-input-dir path proc)
-  (let
-    ((dir (opendir path)))
-    (proc dir)
-    (closedir dir)))
+  (let*
+    ((dir (opendir path))
+     (result (proc dir)))
+    (closedir dir)
+    result))
 
-(call-with-input-dir
-  (dir-join (dirname (current-filename)) "site")
-  (lambda (dir)
-    (do ((entry (readdir dir) (readdir dir)))
-      ((eof-object? entry))
-      (display entry)
-      (newline))))
+(define (dir->list dir)
+  (let
+    ((entry (readdir dir)))
+    (if (eof-object? entry)
+        '()
+        (cons entry (dir->list dir)))))
+
+(define (path->list path)
+  (call-with-input-dir path dir->list))
+
+(define (display-list xs)
+  (for-each
+    (lambda (x)
+      (display x)
+      (newline))
+    xs))
+
+(display-list (path->list (dir-join (dirname (current-filename)) "site")))
