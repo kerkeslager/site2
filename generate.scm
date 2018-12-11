@@ -1,4 +1,4 @@
-#!/usr/local/bin/guile -s
+#!/usr/local/bin/guile -e main -s
 !#
 
 (define (dir-join . args)
@@ -35,7 +35,6 @@
         ((eq? (stat:type (stat path)) 'directory)
          (flatten (map (lambda (p) (fs-find (dir-join path p))) (path->list path))))))
 
-
 (define (display-list xs)
   (for-each
     (lambda (x)
@@ -43,4 +42,6 @@
       (newline))
     xs))
 
-(display-list (fs-find (dir-join (dirname (current-filename)) "site")))
+(define (main args)
+  (let ((source_dir (car args)))
+       (display-list (fs-find (dir-join (dirname (current-filename)) source_dir)))))
