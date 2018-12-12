@@ -35,6 +35,24 @@
         ((eq? (stat:type (stat path)) 'directory)
          (flatten (map (lambda (p) (fs-find (dir-join path p))) (path->list path))))))
 
+#! TODO This doesn't actually check if the paths start with base-dir at all !#
+(define (generate-target-filename path source-path target-path)
+  (let* ((source-path-length (string-length source-path))
+         (path-remainder (string-drop path source-path-length)))
+    (string-append target-path path)))
+
+(define (generate source) source)
+
+(define (read-file file)
+  (list->string
+    (with-input-from-file file
+      (lambda ()
+        (let reading ((chars '()))
+          (let ((char (read-char)))
+            (if (eof-object? char)
+                (reverse chars)
+                (reading (cons char chars)))))))))
+
 (define (display-list xs)
   (for-each
     (lambda (x)
@@ -43,5 +61,7 @@
     xs))
 
 (define (main args)
-  (let ((source_dir (car args)))
-       (display-list (fs-find (dir-join (dirname (current-filename)) source_dir)))))
+  (let* ((source_dir (car args))
+         (target_dir (car (cdr args))))
+    (display (read-file "generate.sh"))
+    (display-list (fs-find (dir-join (dirname (current-filename)) source_dir)))))
