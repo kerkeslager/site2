@@ -10,8 +10,6 @@ sudo ufw allow 'Nginx Full'
 sudo mkdir -p /var/www/kerkeslager.com/html
 sudo chown -R $USER:$USER /var/www/kerkeslager.com/html
 
-./update.sh
-
 sudo cp nginx_configuration /etc/nginx/sites-available/kerkeslager.com
 sudo ln -sf /etc/nginx/sites-available/kerkeslager.com /etc/nginx/sites-enabled/
 
@@ -21,9 +19,19 @@ echo 'deb-src http://deb.debian.org/debian stretch-backports main contrib non-fr
 sudo apt update
 sudo apt install -y python-certbot-nginx -t stretch-backports
 
-sudo systemctl reload nginx
-
 sudo certbot --nginx -d kerkeslager.com --redirect -n
+
+sudo apt install -y build-essential guile-2.0 guile-2.0-dev
+
+wget https://files.dthompson.us/haunt/haunt-0.2.4.tar.gz
+tar -xvzf haunt-0.2.4.tar.gz
+mv haunt-0.2.4/ haunt
+
+pushd haunt
+./configure
+make
+
+./update.sh
 
 sudo systemctl reload nginx
 

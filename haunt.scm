@@ -77,7 +77,7 @@
               (meta (@ (charset "utf-8")))
               (title ,(string-append title " — " (site-title site)))
               ,(stylesheet "reset")
-              ,(stylesheet "main"))
+              ,(stylesheet "style"))
              (body
                (header "Header")
               (nav
@@ -100,7 +100,7 @@
 
            `(
 
-             (h2 "News")
+             (h2 "Blog")
              (ul ,@(map (lambda (post)
                        `(li
                          (a (@ (href ,(post-uri post)))
