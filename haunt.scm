@@ -1,21 +1,3 @@
-;;; Haunt --- Static site generator for GNU Guile
-;;; Copyright © 2015 David Thompson <davet@gnu.org>
-;;;
-;;; This file is part of Haunt.
-;;;
-;;; Haunt is free software; you can redistribute it and/or modify it
-;;; under the terms of the GNU General Public License as published by
-;;; the Free Software Foundation; either version 3 of the License, or
-;;; (at your option) any later version.
-;;;
-;;; Haunt is distributed in the hope that it will be useful, but
-;;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-;;; General Public License for more details.
-;;;
-;;; You should have received a copy of the GNU General Public License
-;;; along with Haunt.  If not, see <http://www.gnu.org/licenses/>.
-
 (use-modules (haunt site)
              (haunt reader)
              (haunt asset)
@@ -52,7 +34,13 @@
           (li ,(anchor "home" "/"))
           (li ,(anchor "blog" "/blog/"))))
       (main ,body)
-      (footer))))
+      (footer
+        (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
+           (img (@ (alt "Creative Commons License") (style "border-width:0") (src "https://i.creativecommons.org/l/by-sa/4.0/88x31.png"))))
+        (br)
+        "This work is licensed under a"
+        (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
+        "."))))
 
 (define (haunt-post-template post)
   `((h2 ,(post-ref post 'title))
@@ -93,11 +81,11 @@
       #:domain "kerkeslager.com"
       #:default-metadata
       '((author . "David Kerkeslager")
-        (email  . "davet@gnu.org"))
+        (email  . "kerkeslager@riseup.net"))
       #:readers (list sxml-reader html-reader)
-      #:builders (list (blog #:collections %collections #:prefix "blog/" #:theme haunt-theme)
-                       (atom-feed)
-                       (atom-feeds-by-tag)
-                       index-page
+      #:builders (list index-page
                        (static-directory "img")
-                       (static-directory "css")))
+                       (static-directory "css")
+                       (blog #:collections %collections #:prefix "blog/" #:theme haunt-theme)
+                       (atom-feed)
+                       (atom-feeds-by-tag)))
