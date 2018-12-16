@@ -8,9 +8,10 @@
              (haunt builder blog)
              (haunt builder atom)
              (haunt builder assets)
-             (srfi srfi-19)
              (ice-9 rdelim)
              (ice-9 match)
+             (srfi srfi-19)
+             (sxml simple)
              (web uri))
 
 (define (stylesheet name)
@@ -20,30 +21,53 @@
 (define (anchor content uri)
   `(a (@ (href ,uri)) ,content))
 
+(define (string-starts-with? s subs)
+  (let ((subs-length (string-length subs)))
+    (if (< (string-length s) subs-length)
+        #f
+        (equal? (substring s 0 subs-length) subs))))
+
+(define (clean-svg svg-node)
+  (if (pair? svg-node)
+      (let ((tag (car svg-node))
+            (dtd "http://www.w3.org/2000/svg:"))
+        (cond ((eqv? tag '*TOP*) (map clean-svg (cdr svg-node)))
+              ((eqv? tag '@) svg-node)
+              ((string-starts-with? (symbol->string tag) dtd)
+               (cons (string->symbol (substring (symbol->string tag) (string-length dtd)))
+                     (map clean-svg (cdr svg-node))))
+              (else svg-node)))
+      svg-node))
+
+(define (embed-svg name)
+  (clean-svg (call-with-input-file (string-append "svg/" name) xml->sxml)))
+
 (define (haunt-layout site title body)
   `((doctype "html")
-    (head
-      (meta (@ (charset "utf-8")))
-      (title ,(string-append title " — " (site-title site)))
-      ,(stylesheet "reset")
-      ,(stylesheet "style"))
-    (body
-      (header "Header")
-      (nav
-        (ul
-          (li ,(anchor "home" "/"))
-          (li ,(anchor "blog" "/blog/"))))
-      (main ,body)
-      (footer
-        (p "This site was built with"
-           (a (@ (href "https://dthompson.us/projects/haunt.html")) "Haunt") ".")
-        (p
-          (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
-             (img (@ (alt "Creative Commons License") (style "border-width:0") (src "/img/88x31.png"))))
-          (br)
-          "All content is © 2018 by David Kerkeslager and released under the"
-          (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
-          " unless otherwise specified.")))))
+    (html
+      (@ (lang "en"))
+      (head
+        (meta (@ (charset "utf-8")))
+        (title ,(string-append title " — " (site-title site)))
+        ,(stylesheet "reset")
+        ,(stylesheet "style"))
+      (body
+        (header "Header")
+        (nav
+          (ul
+            (li ,(anchor "home" "/"))
+            (li ,(anchor "blog" "/blog/"))))
+        (main ,body)
+        (footer
+          (p "This site was built with"
+             (a (@ (href "https://dthompson.us/projects/haunt.html")) "Haunt") ".")
+          (p
+            (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
+               ,(embed-svg "by-sa.svg"))
+            (br)
+            "All content is © 2018 by David Kerkeslager and released under the"
+            (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
+            " unless otherwise specified."))))))
 
 (define (haunt-post-template post)
   `((h2 ,(post-ref post 'title))
@@ -74,7 +98,7 @@
 
 (define (index-page site posts)
   (make-page "index.html"
-             (with-layout haunt-theme site "Downloads" "Homepage body content")
+             (with-layout haunt-theme site "Home" "Homepage body content")
              sxml->html))
 
 (define %collections
