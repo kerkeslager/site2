@@ -10,9 +10,9 @@
              (haunt builder assets)
              (ice-9 rdelim)
              (ice-9 match)
-             (srfi srfi-19)
              (web uri)
 
+             (dk formats)
              (dk svg))
 
 (define (stylesheet name)
@@ -50,7 +50,7 @@
 
 (define (haunt-post-template post)
   `(article (h1 ,(post-ref post 'title))
-						(div (@ (class "date")) ,(date->string (post-date post) "~Y ~m ~d"))
+						(div (@ (class "date")) ,(format-date (post-date post)))
 						(div ,(post-sxml post))))
 
 (define (haunt-collection-template site title posts prefix)
@@ -66,7 +66,7 @@
         ,@(map (lambda (post)
 								 `(li
 										(a (@ (href ,(post-uri post)))
-											 ,(date->string (post-date post) "~Y ~m ~d")
+											 ,(format-date (post-date post))
 											 " — "
 											 ,(post-ref post 'title))))
 							 (posts/reverse-chronological posts)))))
