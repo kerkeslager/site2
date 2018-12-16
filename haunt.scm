@@ -31,21 +31,6 @@
              (ice-9 match)
              (web uri))
 
-(define %releases
-  '(("0.1" "c81dbcdf33f9b0a19442d3701cffa3b60c8891ce")))
-
-(define (tarball-url version)
-  (string-append "http://files.dthompson.us/haunt/haunt-"
-                 version ".tar.gz"))
-
-(define %download-button
-  (match %releases
-    (((version sha1) . _)
-     `(a (@ (class "btn btn-primary btn-lg")
-            (role "button")
-            (href ,(tarball-url version)))
-         "Download Haunt " ,version))))
-
 (define (stylesheet name)
   `(link (@ (rel "stylesheet")
             (href ,(string-append "/css/" name ".css")))))
@@ -53,67 +38,50 @@
 (define (anchor content uri)
   `(a (@ (href ,uri)) ,content))
 
-(define (logo src)
-  `(img (@ (class "logo") (src ,(string-append "/images/" src)))))
+(define (haunt-layout site title body)
+  `((doctype "html")
+    (head
+      (meta (@ (charset "utf-8")))
+      (title ,(string-append title " — " (site-title site)))
+      ,(stylesheet "reset")
+      ,(stylesheet "style"))
+    (body
+      (header "Header")
+      (nav
+        (ul
+          (li ,(anchor "home" "/"))
+          (li ,(anchor "blog" "/blog/"))))
+      (main ,body)
+      (footer))))
 
-(define (jumbotron content)
-  `(div (@ (class "jumbotron"))
-        (div (@ (class "row"))
-             (div (@ (class "column-logo"))
-                  (img (@ (class "big-logo")
-                          (src "/images/haunt.png"))))
-             (div (@ (class "column-info")) ,content))))
+(define (haunt-post-template post)
+  `((h2 ,(post-ref post 'title))
+    (h3 "by " ,(post-ref post 'author)
+        " — " ,(date->string* (post-date post)))
+    (div ,(post-sxml post))))
 
-(define %cc-by-sa-link
-  '(a (@ (href "https://creativecommons.org/licenses/by-sa/4.0/"))
-      "Creative Commons Attribution Share-Alike 4.0 International"))
+(define (haunt-collection-template site title posts prefix)
+  (define (post-uri post)
+    (string-append "/" (or prefix "")
+                   (site-post-slug site post) ".html"))
+
+  `((h2 "Blog")
+    (ul ,@(map (lambda (post)
+                 `(li
+                    (a (@ (href ,(post-uri post)))
+                       ,(post-ref post 'title)
+                       " — "
+                       ,(date->string* (post-date post)))))
+               (posts/reverse-chronological posts)))))
 
 (define haunt-theme
   (theme #:name "Haunt"
-         #:layout
-         (lambda (site title body)
-           `((doctype "html")
-             (head
-              (meta (@ (charset "utf-8")))
-              (title ,(string-append title " — " (site-title site)))
-              ,(stylesheet "reset")
-              ,(stylesheet "style"))
-             (body
-               (header "Header")
-              (nav
-                           (ul
-                            (li ,(anchor "home" "/"))
-                            (li ,(anchor "blog" "/blog/"))))
-              (main ,body)
-              (footer))))
-         #:post-template
-         (lambda (post)
-           `((h2 ,(post-ref post 'title))
-             (h3 "by " ,(post-ref post 'author)
-                 " — " ,(date->string* (post-date post)))
-             (div ,(post-sxml post))))
-         #:collection-template
-         (lambda (site title posts prefix)
-           (define (post-uri post)
-             (string-append "/" (or prefix "")
-                            (site-post-slug site post) ".html"))
-
-           `(
-
-             (h2 "Blog")
-             (ul ,@(map (lambda (post)
-                       `(li
-                         (a (@ (href ,(post-uri post)))
-                            ,(post-ref post 'title)
-                            " — "
-                            ,(date->string* (post-date post)))))
-                     (posts/reverse-chronological posts)))
-
-
-              ))))
+         #:layout haunt-layout
+         #:post-template haunt-post-template
+         #:collection-template haunt-collection-template
+         ))
 
 (define (index-page site posts)
-
   (make-page "index.html"
              (with-layout haunt-theme site "Downloads" "Homepage body content")
              sxml->html))
@@ -121,10 +89,10 @@
 (define %collections
   `(("Home" "index.html" ,posts/reverse-chronological)))
 
-(site #:title "Haunt"
-      #:domain "dthompson.us"
+(site #:title "David Kerkeslager's Website"
+      #:domain "kerkeslager.com"
       #:default-metadata
-      '((author . "David Thompson")
+      '((author . "David Kerkeslager")
         (email  . "davet@gnu.org"))
       #:readers (list sxml-reader html-reader)
       #:builders (list (blog #:collections %collections #:prefix "blog/" #:theme haunt-theme)
