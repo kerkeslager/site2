@@ -27,11 +27,19 @@
         #f
         (equal? (substring s 0 subs-length) subs))))
 
+(define (strip-processing-instructions svg-nodes)
+  (filter
+    (lambda (svg-node)
+      (if (pair? svg-node)
+          (not (eqv? (car svg-node) '*PI*))
+          #t))
+    svg-nodes))
+
 (define (clean-svg svg-node)
   (if (pair? svg-node)
       (let ((tag (car svg-node))
             (dtd "http://www.w3.org/2000/svg:"))
-        (cond ((eqv? tag '*TOP*) (map clean-svg (cdr svg-node)))
+        (cond ((eqv? tag '*TOP*) (map clean-svg (strip-processing-instructions (cdr svg-node))))
               ((eqv? tag '@) svg-node)
               ((string-starts-with? (symbol->string tag) dtd)
                (cons (string->symbol (substring (symbol->string tag) (string-length dtd)))
@@ -52,11 +60,10 @@
         ,(stylesheet "reset")
         ,(stylesheet "style"))
       (body
-        (header "Header")
-        (nav
-          (ul
-            (li ,(anchor "home" "/"))
-            (li ,(anchor "blog" "/blog/"))))
+        (nav (a (@ (href "/")) ,(embed-svg "feather/home.svg"))
+             (a (@ (href "/blog/")) ,(embed-svg "feather/book.svg"))
+             (a (@ (href "/climbing/")) ,(embed-svg "mountain.svg"))
+             (a (@ (href "https://github.com/kerkeslager/")) ,(embed-svg "feather/code.svg")))
         (main ,body)
         (footer
           (p "This site was built with"
@@ -64,7 +71,6 @@
           (p
             (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
                ,(embed-svg "by-sa.svg"))
-            (br)
             "All content is © 2018 by David Kerkeslager and released under the"
             (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
             " unless otherwise specified."))))))

@@ -1,3 +1,18 @@
 body {
   font-family: Georgia;
 }
+
+nav {
+  flex-direction: row;
+  justify-content: center;
+
+  margin: 2rem 0;
+}
+
+nav a:not(:first-child) {
+  margin-left: 1rem;
+}
+
+footer {
+  margin: 2rem 0;
+}
