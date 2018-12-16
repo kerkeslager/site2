@@ -11,44 +11,13 @@
              (ice-9 rdelim)
              (ice-9 match)
              (srfi srfi-19)
-             (sxml simple)
-             (web uri))
+             (web uri)
+
+             (dk svg))
 
 (define (stylesheet name)
   `(link (@ (rel "stylesheet")
             (href ,(string-append "/css/" name ".css")))))
-
-(define (anchor content uri)
-  `(a (@ (href ,uri)) ,content))
-
-(define (string-starts-with? s subs)
-  (let ((subs-length (string-length subs)))
-    (if (< (string-length s) subs-length)
-        #f
-        (equal? (substring s 0 subs-length) subs))))
-
-(define (strip-processing-instructions svg-nodes)
-  (filter
-    (lambda (svg-node)
-      (if (pair? svg-node)
-          (not (eqv? (car svg-node) '*PI*))
-          #t))
-    svg-nodes))
-
-(define (clean-svg svg-node)
-  (if (pair? svg-node)
-      (let ((tag (car svg-node))
-            (dtd "http://www.w3.org/2000/svg:"))
-        (cond ((eqv? tag '*TOP*) (map clean-svg (strip-processing-instructions (cdr svg-node))))
-              ((eqv? tag '@) svg-node)
-              ((string-starts-with? (symbol->string tag) dtd)
-               (cons (string->symbol (substring (symbol->string tag) (string-length dtd)))
-                     (map clean-svg (cdr svg-node))))
-              (else svg-node)))
-      svg-node))
-
-(define (embed-svg name)
-  (clean-svg (call-with-input-file (string-append "svg/" name) xml->sxml)))
 
 (define (haunt-layout site title body)
   `((doctype "html")
@@ -106,8 +75,7 @@
 	(theme #:name "Haunt"
 				 #:layout haunt-layout
 				 #:post-template haunt-post-template
-				 #:collection-template haunt-collection-template
-				 ))
+				 #:collection-template haunt-collection-template))
 
 (define (index-page site posts)
 	(make-page "index.html"
