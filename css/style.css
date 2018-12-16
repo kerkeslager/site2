@@ -6,7 +6,7 @@ nav {
   flex-direction: row;
   justify-content: center;
 
-  margin: 2rem 0;
+  margin: 4rem 0;
 }
 
 nav a:not(:first-child) {
@@ -14,5 +14,18 @@ nav a:not(:first-child) {
 }
 
 footer {
-  margin: 2rem 0;
+  margin: 4rem 2rem;
+  max-width: 30em;
+}
+
+footer section {
+  width: 100%;
+}
+
+footer section p {
+  width: 100%;
+}
+
+footer section:not(:first-child) {
+  margin-top: 1rem;
 }
