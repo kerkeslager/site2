@@ -66,12 +66,12 @@
              (a (@ (href "https://github.com/kerkeslager/")) ,(embed-svg "feather/code.svg")))
         (main ,body)
         (footer
-          (p "This site was built with"
+          (p "This site was built with "
              (a (@ (href "https://dthompson.us/projects/haunt.html")) "Haunt") ".")
           (p
             (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
                ,(embed-svg "by-sa.svg"))
-            "All content is © 2018 by David Kerkeslager and released under the"
+            "All content is © 2018 by David Kerkeslager and released under the "
             (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
             " unless otherwise specified."))))))
 
@@ -107,6 +107,11 @@
              (with-layout haunt-theme site "Home" "Homepage body content")
              sxml->html))
 
+(define (climbing-index-page site posts)
+  (make-page "climbing/index.html"
+             (with-layout haunt-theme site "Climbing" "Climbing body content")
+             sxml->html))
+
 (define %collections
   `(("Home" "index.html" ,posts/reverse-chronological)))
 
@@ -117,6 +122,7 @@
         (email  . "kerkeslager@riseup.net"))
       #:readers (list sxml-reader html-reader)
       #:builders (list index-page
+                       climbing-index-page
                        (static-directory "img")
                        (static-directory "css")
                        (blog #:collections %collections #:prefix "blog/" #:theme haunt-theme)

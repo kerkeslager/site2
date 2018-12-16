@@ -1,8 +1,10 @@
-html, body, header, nav, main, footer, div, p {
+html, body, header, nav, main, footer, div {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
 
+html, body, header, nav, main, footer, div, p {
   width: 100%;
 
   margin: 0;
