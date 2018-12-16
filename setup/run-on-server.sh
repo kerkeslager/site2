@@ -28,8 +28,9 @@ tar -xvzf haunt-0.2.4.tar.gz
 mv haunt-0.2.4/ haunt
 
 pushd haunt
-./configure
-make
+./configure --prefix=/usr
+make "GUILE_TOOLS=guild"
+sudo make install
 
 ./update.sh
 
