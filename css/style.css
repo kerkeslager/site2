@@ -1,5 +1,7 @@
 body {
   font-family: Georgia;
+	align-items: center;
+  width: 100%;
 }
 
 nav {
@@ -13,7 +15,34 @@ nav a:not(:first-child) {
   margin-left: 1rem;
 }
 
+main {
+  width: calc(100% - 4rem);
+  max-width: 40em;
+}
+
+main h1 {
+  align-self: center;
+}
+
+main .rss {
+  align-self: center;
+  margin-top: 1rem;
+}
+
+main .blog-index {
+  margin-top: 2rem;
+}
+
+main .blog-index li:not(:first-child) {
+  margin-top: 1.25rem;
+}
+
+main article {
+  width: 100%;
+}
+
 footer {
+  align-items: center;
   margin: 4rem 2rem;
   max-width: 30em;
 }
@@ -24,6 +53,7 @@ footer > :not(:first-child) {
 
 footer .licenses {
   flex-direction: row;
+  align-items: center;
 }
 
 footer .licenses div {
