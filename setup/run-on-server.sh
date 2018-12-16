@@ -31,9 +31,9 @@ pushd haunt
 ./configure --prefix=/usr
 make "GUILE_TOOLS=guild"
 sudo make install
+popd
 
 ./update.sh
+popd
 
 sudo systemctl reload nginx
-
-popd
