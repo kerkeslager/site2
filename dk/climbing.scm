@@ -2,38 +2,110 @@
                #:use-module (haunt builder blog)
                #:use-module (haunt html)
                #:use-module (haunt page)
+               #:use-module (srfi srfi-1)
                #:use-module (dk formats)
+               #:use-module (dk svg)
                #:export (climbing-index-page))
 
+(define star (embed-svg "feather/star.svg"))
+
+(define (stars count)
+  `(span ,(map (lambda (_) star) (iota count))))
+
+(define* (route #:key name difficulty (safety "G") quality)
+         (if (or (equal? safety "G") (equal? safety "PG"))
+             `(li (h4 ,difficulty " " ,name))
+             `(li (h4 ,difficulty "(" ,safety ") " ,name))))
+
+(define* (boulder-problem #:key name difficulty (safety "G") quality)
+         (if (or (equal? safety "G") (equal? safety "PG"))
+             `(li (h4 ,difficulty " " ,name))
+             `(li (h4 ,difficulty "(" ,safety ") " ,name))))
+
 (define redpoints
-  '(ul (li "5.8 Psycho Crack Right")
-       (li "5.7 Reach Around")
-       (li "5.7 Kling-on")
-       (li "5.7(5.5R) The Brat")
-       (li "5.6 Laurel")))
+  `(ul ,(route #:name "Psycho Crack Right"
+               #:quality (stars 3)
+               #:difficulty "5.8"
+               #:safety "PG")
+       ,(route #:name "Reach Around"
+               #:quality (stars 2)
+               #:difficulty "5.7")
+       ,(route #:name "The Brat"
+               #:quality (stars 2)
+               #:difficulty "5.7"
+               #:safety "5.5R")
+       ,(route #:name "Laurel"
+               #:quality (stars 2)
+               #:difficulty "5.6"
+               #:safety "PG")))
 
 (define onsights
-  '(ul (li "5.6(PG13) Moonlight")
-       (li "5.6 High Exposure")
-       (li "5.6 Baby")
-       (li "5.7 First Day")
-       (li "5.6 Sundance")
-       (li "5.6 Genuflect")
-       (li "5.6(PG13) Eyesore")
-       (li "5.5 Ursula")))
+  `(ul ,(route #:name "Moonlight"
+               #:quality (stars 4)
+               #:difficulty "5.5"
+               #:safety "PG13")
+       ,(route #:name "High Exposure"
+               #:quality (stars 4)
+               #:difficulty "5.6")
+       ,(route #:name "First Day"
+               #:quality (stars 2)
+               #:difficulty "5.7")
+       ,(route #:name "Genuflect"
+               #:quality (stars 2)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "Eyesore"
+               #:quality (stars 2)
+               #:difficulty "5.7"
+               #:safety "PG")
+       ,(route #:name "Genuflect"
+               #:quality (stars 2)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "Cool Hand Luke"
+               #:quality (stars 2)
+               #:difficulty "5.6")))
 
 (define other-leads
-  '(ul (li "5.6 Cat in the Hat")
-       (li "5.9 Big Bad Wolf")
-       (li "5.6 Madame Grunnebaum's Wulst")
-       (li "5.6 Shockley's Ceiling")
-       (li "5.8 Bolt Line")
-       (li "5.8(5.6PG13) City Lights")
-       (li "5.4(R) Beginner's Delight")))
+  `(ul ,(route #:name "Cat in the Hat"
+               #:quality (stars 4)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "Big Bad Wolf"
+               #:quality (stars 3)
+               #:difficulty "5.9")
+       ,(route #:name "Madame Grunnebaum's Wulst"
+               #:quality (stars 3)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "Shockley's Ceiling"
+               #:quality (stars 3)
+               #:difficulty "5.6")
+       ,(route #:name "Baby"
+               #:quality (stars 3)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "Bolt Line"
+               #:quality (stars 2)
+               #:difficulty "5.6"
+               #:safety "PG")
+       ,(route #:name "City Lights"
+               #:quality (stars 2)
+               #:difficulty "5.8"
+               #:safety "5.6PG13")
+       ,(route #:name "Beginner's Delight"
+               #:quality (stars 1)
+               #:difficulty "5.4"
+               #:safety "R")))
 
 (define boulders
-  '(ul (li "V2 M4")
-       (li "V1(PG13) Suzie A")))
+  `(ul ,(boulder-problem #:name "M4"
+                         #:quality (stars 4)
+                         #:difficulty "V2")
+       ,(boulder-problem #:name "Suzie A"
+                         #:quality (stars 4)
+                         #:difficulty "V1"
+                         #:safety "PG13")))
 
 (define selected-leads
   `(section (h2 "Selected Leads")
