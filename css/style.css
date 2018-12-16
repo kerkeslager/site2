@@ -18,14 +18,19 @@ footer {
   max-width: 30em;
 }
 
-footer section {
-  width: 100%;
-}
-
-footer section p {
-  width: 100%;
-}
-
-footer section:not(:first-child) {
+footer > :not(:first-child) {
   margin-top: 1rem;
+}
+
+footer .licenses {
+  flex-direction: row;
+}
+
+footer .licenses div {
+  margin-left: 1rem;
+  align-items: flex-start;
+}
+
+footer .licenses div > :not(:first-child) {
+  margin-top: 0.5rem;
 }

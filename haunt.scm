@@ -65,15 +65,20 @@
              (a (@ (href "/climbing/")) ,(embed-svg "mountain.svg"))
              (a (@ (href "https://github.com/kerkeslager/")) ,(embed-svg "feather/code.svg")))
         (main ,body)
-        (footer (section (p "This site was built with "
-                  (a (@ (href "https://dthompson.us/projects/haunt.html")) "Haunt") "."))
-          (section (p "All code is licensed under the "
-                      (a (@ (rel "license") (href "https://www.gnu.org/licenses/gpl.html"))
-                         "GNU General Public License")
-                      " unless otherwise specified."))
-          (section (p "All content is © 2018 by David Kerkeslager and released under the "
-                 (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/")) "Creative Commons Attribution-ShareAlike 4.0 International License")
-                 " unless otherwise specified.")))))))
+        (footer
+          (p "© 2018 David Kerkeslager")
+          (p "Site built with "
+             (a (@ (href "https://dthompson.us/projects/haunt.html")) "Haunt") ".")
+          (section (@ (class "licenses"))
+                   "Licenses: "
+                   (div
+                     (span "Content: "
+                           (a (@ (rel "license") (href "http://creativecommons.org/licenses/by-sa/4.0/"))
+                              "CC BY-SA 4.0"))
+                     (span "Code: "
+                           (a (@ (rel "license") (href "https://www.gnu.org/licenses/gpl.html"))
+                              "GPL 3.0"))))
+          )))))
 
 (define (haunt-post-template post)
   `((h2 ,(post-ref post 'title))

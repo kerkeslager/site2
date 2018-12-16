@@ -4,7 +4,7 @@ html, body, header, nav, main, footer, section, div {
   align-items: center;
 }
 
-html, body, header, nav, main, footer, div, p {
+html, body, header, nav, main, footer, div, h1, h2, h3, h4, h5, h6, p, ul, ol {
   margin: 0;
   padding: 0;
   border: 0;
