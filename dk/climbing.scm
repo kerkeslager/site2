@@ -34,17 +34,17 @@
                        ,difficulty
                        ,(display-risky safety)
                        ,name
-                       ,(display-link-if-exists link))
+                       " " ,(display-link-if-exists link))
                    (time ,(format-date date))
                    ,description))
 
-(define* (boulder-problem #:key name date difficulty (safety "G") quality description)
+(define* (boulder-problem #:key name date difficulty (safety "G") quality (link '()) description)
          `(section (@ (class "route"))
                    (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
                        ,name
-                       ,(display-link-if-exists link))
+                       " " ,(display-link-if-exists link))
                    (time ,(format-date date))
                    ,description))
 
