@@ -8,8 +8,8 @@
                #:use-module (dk svg)
                #:export (climbing-index-page))
 
-(define (make-date-easy date month year)
-  (make-date 0 0 0 0 date month year 0))
+(define (make-date-easy year month day)
+  (make-date 0 0 0 0 day month year 0))
 
 (define star (embed-svg "feather/star.svg"))
 
@@ -21,22 +21,25 @@
       " "
       (string-append "(" safety ") ")))
 
-(define* (route #:key name difficulty (safety "G") quality description)
+(define* (route #:key name date difficulty (safety "G") quality description)
          `(section (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
                        ,name)
+                   (em ,(format-date date))
                    ,description))
 
-(define* (boulder-problem #:key name difficulty (safety "G") quality description)
+(define* (boulder-problem #:key name date difficulty (safety "G") quality description)
          `(section (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
                        ,name)
+                   (em ,(format-date date))
                    ,description))
 
 (define redpoints
   `(section ,(route #:name "Psycho Crack Right"
+                    #:date (make-date-easy 2018 10 22)
                #:quality 4
                #:difficulty "5.8"
                #:safety "PG"
@@ -52,6 +55,7 @@
                                       route was over a few body-lengths later that I got another
                                       piece.")))
        ,(route #:name "The Brat"
+               #:date (make-date-easy 2018 7 7)
                #:quality 2
                #:difficulty "5.7"
                #:safety "5.5R"
@@ -62,6 +66,7 @@
                                       runout section, but when my follower arrived at it they
                                       laughed and removed it without even depressing the trigger.")))
        ,(route #:name "Reach Around"
+               #:date (make-date-easy 2018 6 26)
                #:quality 2
                #:difficulty "5.7"
                #:description '(div (p "This route is fairly easy until its short, well-protected
@@ -71,6 +76,7 @@
                                       was height-dependent, and I'm on the taller side of
                                       average.")))
        ,(route #:name "Laurel"
+               #:date (make-date-easy 2018 5 24)
                #:quality 2
                #:difficulty "5.6"
                #:safety "PG"
@@ -84,73 +90,88 @@
 
 (define onsights
   `(section ,(route #:name "Moonlight"
+               #:date (make-date-easy 2018 8 10)
                #:quality 4
                #:difficulty "5.6"
                #:safety "PG13"
                #:description '(div (p "Description")))
        ,(route #:name "High Exposure"
+               #:date (make-date-easy 2018 8 20)
                #:quality 4
                #:difficulty "5.6"
                #:description '(div (p "Description")))
        ,(route #:name "First Day"
+               #:date (make-date-easy 2018 10 10)
                #:quality 2
                #:difficulty "5.7"
                #:description '(div (p "Description")))
        ,(route #:name "Genuflect"
+               #:date (make-date-easy 2018 11 11)
                #:quality 2
                #:difficulty "5.6"
                #:safety "PG"
                #:description '(div (p "Description")))
        ,(route #:name "Eyesore"
+               #:date (make-date-easy 2018 8 15)
                #:quality 2
                #:difficulty "5.7"
                #:safety "PG"
                #:description '(div (p "Description")))
-       ,(route #:name "Genuflect"
+       ,(route #:name "Sundance"
+               #:date (make-date-easy 2018 10 16)
                #:quality 2
                #:difficulty "5.6"
                #:safety "PG"
                #:description '(div (p "Description")))
        ,(route #:name "Cool Hand Luke"
+               #:date (make-date-easy 2018 7 9)
                #:quality 2
                #:difficulty "5.6"
                #:description '(div (p "Description")))))
 
 (define other-leads
   `(section ,(route #:name "Cat in the Hat"
+               #:date (make-date-easy 2018 4 8)
                #:quality 4
                #:difficulty "5.6"
                #:safety "PG"
-               #:description '(div (p "Description")))
+               #:description '(div (p "Swapped leads.")))
        ,(route #:name "Big Bad Wolf"
+               #:date (make-date-easy 2018 4 7)
                #:quality 3
                #:difficulty "5.9"
-               #:description '(div (p "Description")))
+               #:description '(div (p "Led the middle (5.8) pitch.")))
        ,(route #:name "Madame Grunnebaum's Wulst"
+               #:date (make-date-easy 2018 9 30)
                #:quality 3
                #:difficulty "5.6"
                #:safety "PG"
                #:description '(div (p "Description")))
        ,(route #:name "Shockley's Ceiling"
+               #:date (make-date-easy 2018 8 9)
                #:quality 3
                #:difficulty "5.6"
                #:description '(div (p "Description")))
        ,(route #:name "Baby"
+               #:date (make-date-easy 2018 10 10)
                #:quality 3
                #:difficulty "5.6"
                #:safety "PG"
                #:description '(div (p "Description")))
        ,(route #:name "Bolt Line"
+               #:date (make-date-easy 2018 7 29)
                #:quality 2
                #:difficulty "5.8"
                #:safety "PG"
                #:description '(div (p "Description")))
        ,(route #:name "City Lights"
+               #:date (make-date-easy 2018 6 19)
                #:quality 2
                #:difficulty "5.8"
                #:safety "5.6PG13"
                #:description '(div (p "Description")))
        ,(route #:name "Beginner's Delight"
+               #:date (make-date-easy 2017 10 15)
                #:quality 1
                #:difficulty "5.4"
                #:safety "R"
@@ -158,10 +179,12 @@
 
 (define boulders
   `(ul ,(boulder-problem #:name "M4"
+                        #:date (make-date-easy 2018 12 11)
                          #:quality 4
                          #:difficulty "V2"
                          #:description '(div (p "Description")))
        ,(boulder-problem #:name "Suzie A"
+                        #:date (make-date-easy 2018 9 8)
                          #:quality 4
                          #:difficulty "V1"
                          #:safety "PG13"
