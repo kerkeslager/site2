@@ -64,3 +64,36 @@ footer .licenses div {
 footer .licenses div > :not(:first-child) {
   margin-top: 0.5rem;
 }
+
+h1 {
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  line-height: 1.2;
+}
+
+.route {
+  margin-top: 1rem;
+}
+
+.route .stars {
+  margin-right: 0.5rem;
+}
+
+.route time {
+  font-style: italic;
+}
+
+.route p:first-child {
+  margin-top: 0.2rem;
+}
+
+.route p:not(:first-child) {
+  margin-top: 0.4rem;
+}

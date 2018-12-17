@@ -14,7 +14,7 @@
 (define star (embed-svg "feather/star.svg"))
 
 (define (stars count)
-  `(span ,(map (lambda (_) star) (iota count))))
+  `(span (@ (class "stars")) ,(map (lambda (_) star) (iota count))))
 
 (define (display-risky safety)
   (if (or (equal? safety "G") (equal? safety "PG"))
@@ -22,24 +22,27 @@
       (string-append "(" safety ") ")))
 
 (define* (route #:key name date difficulty (safety "G") quality description)
-         `(section (h4 ,(stars quality)
+         `(section (@ (class "route"))
+                   (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
                        ,name)
-                   (em ,(format-date date))
+                   (time ,(format-date date))
                    ,description))
 
 (define* (boulder-problem #:key name date difficulty (safety "G") quality description)
-         `(section (h4 ,(stars quality)
+         `(section (@ (class "route"))
+                   (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
                        ,name)
-                   (em ,(format-date date))
+                   (time ,(format-date date))
                    ,description))
 
 (define redpoints
-  `(section ,(route #:name "Psycho Crack Right"
-                    #:date (make-date-easy 2018 10 22)
+  `(div (@ (class "route-list"))
+     ,(route #:name "Psycho Crack Right"
+               #:date (make-date-easy 2018 10 22)
                #:quality 4
                #:difficulty "5.8"
                #:safety "PG"
@@ -89,7 +92,8 @@
                                       5.7, probably because the crux is height-dependent.")))))
 
 (define onsights
-  `(section ,(route #:name "Moonlight"
+  `(div (@ (class "route-list"))
+        ,(route #:name "Moonlight"
                #:date (make-date-easy 2018 8 10)
                #:quality 4
                #:difficulty "5.6"
@@ -130,7 +134,8 @@
                #:description '(div (p "First onsight at the grade.")))))
 
 (define other-leads
-  `(section ,(route #:name "Cat in the Hat"
+  `(div (@ (class "route-list"))
+        ,(route #:name "Cat in the Hat"
                #:date (make-date-easy 2018 4 8)
                #:quality 4
                #:difficulty "5.6"
@@ -178,7 +183,8 @@
                #:description '(div (p "First serious trad lead fall, a 30 footer onto a #3. Thanks LB for the catch!")))))
 
 (define boulders
-  `(ul ,(boulder-problem #:name "M4"
+  `(div (@ (class "route-list"))
+        ,(boulder-problem #:name "M4"
                         #:date (make-date-easy 2018 12 11)
                          #:quality 4
                          #:difficulty "V2"
@@ -191,18 +197,18 @@
                          #:description '(div (p "Description")))))
 
 (define selected-leads
-  `(section (h2 "Selected Leads")
+  `(section (h1 "Selected Leads")
             (p "This is an abridged list of the things I've climbed. I included climbs either because I'm proud of having lead them, or because they were memorable or enjoyable.")
-            (section (h3 "Redpoints")
+            (section (h2 "Redpoints")
                      (p "These are climbs that I spent a significant amount of time working on before I was able to lead climb them without falling.")
                      ,redpoints)
-            (section (h3 "Onsights")
+            (section (h2 "Onsights")
                      (p "These are climbs that I climbed on the first try without beta and without weighting the rope.")
                      ,onsights)
-            (section (h3 "Other leads")
+            (section (h2 "Other leads")
                      (p "These are leads that I didn't redpoint or onsight, but are worth mentioning.")
                      ,other-leads)
-            (section (h3 "Boulder problems")
+            (section (h2 "Boulder problems")
                      (p "I'm not much of a boulderer, but here are a few boulder problems I've done.")
                      ,boulders)))
 
