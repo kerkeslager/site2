@@ -26,7 +26,7 @@
 (define (display-link-if-exists link)
   (if (nil? link)
       " "
-      `(a (@ (href ,link)) external-link-svg)))
+      `(a (@ (href ,link)) ,external-link-svg)))
 
 (define* (route #:key name date difficulty (safety "G") quality (link '()) description)
          `(section (@ (class "route"))
