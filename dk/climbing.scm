@@ -104,7 +104,7 @@
                #:date (make-date-easy 2018 10 10)
                #:quality 2
                #:difficulty "5.7"
-               #:description '(div (p "Description")))
+               #:description '(div (p "Went via the left book. Maybe a bit soft for 5.7 this way.")))
        ,(route #:name "Genuflect"
                #:date (make-date-easy 2018 11 11)
                #:quality 2
@@ -116,7 +116,7 @@
                #:quality 2
                #:difficulty "5.7"
                #:safety "PG"
-               #:description '(div (p "Description")))
+               #:description '(div (p "Quite the sandbag.")))
        ,(route #:name "Sundance"
                #:date (make-date-easy 2018 10 16)
                #:quality 2
@@ -127,7 +127,7 @@
                #:date (make-date-easy 2018 7 9)
                #:quality 2
                #:difficulty "5.6"
-               #:description '(div (p "Description")))))
+               #:description '(div (p "First onsight at the grade.")))))
 
 (define other-leads
   `(section ,(route #:name "Cat in the Hat"
@@ -163,19 +163,19 @@
                #:quality 2
                #:difficulty "5.8"
                #:safety "PG"
-               #:description '(div (p "Description")))
+               #:description '(div (p "First attempt to onsight 5.8. I hung on the early crux, then re-attempted from the ground and got it.")))
        ,(route #:name "City Lights"
                #:date (make-date-easy 2018 6 19)
                #:quality 2
                #:difficulty "5.8"
                #:safety "5.6PG13"
-               #:description '(div (p "Description")))
+               #:description '(div (p "First lead at the grade.")))
        ,(route #:name "Beginner's Delight"
                #:date (make-date-easy 2017 10 15)
                #:quality 1
                #:difficulty "5.4"
                #:safety "R"
-               #:description '(div (p "Description")))))
+               #:description '(div (p "First serious trad lead fall, a 30 footer onto a #3. Thanks LB for the catch!")))))
 
 (define boulders
   `(ul ,(boulder-problem #:name "M4"
