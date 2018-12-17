@@ -21,12 +21,20 @@
       " "
       (string-append "(" safety ") ")))
 
-(define* (route #:key name date difficulty (safety "G") quality description)
+(define external-link-svg (embed-svg "feather/external-link.svg"))
+
+(define (display-link-if-exists link)
+  (if (nil? link)
+      " "
+      `(a (@ (href ,link)) external-link-svg)))
+
+(define* (route #:key name date difficulty (safety "G") quality (link '()) description)
          `(section (@ (class "route"))
                    (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
-                       ,name)
+                       ,name
+                       ,(display-link-if-exists link))
                    (time ,(format-date date))
                    ,description))
 
@@ -35,7 +43,8 @@
                    (h4 ,(stars quality)
                        ,difficulty
                        ,(display-risky safety)
-                       ,name)
+                       ,name
+                       ,(display-link-if-exists link))
                    (time ,(format-date date))
                    ,description))
 
@@ -93,124 +102,166 @@
 
 (define onsights
   `(div (@ (class "route-list"))
+        ,(route #:name "First Day"
+                #:date (make-date-easy 2018 10 10)
+                #:quality 2
+                #:difficulty "5.7"
+                #:description '(div (p "This was my first 5.7 onsight! However, like many Peterskill
+                                       routes, this route is frequently top roped, and for rope
+                                       management reasons the top rope route goes the straightest
+                                       way, which leads up the right dihedral of a section that looks
+                                       like a letter W. Leading, it felt more natural to go up the
+                                       left dihedral. It felt a bit soft for 5.7 this way.")))
+        ,(route #:name "High Exposure"
+                #:date (make-date-easy 2018 8 20)
+                #:quality 4
+                #:difficulty "5.6"
+                #:description '(div (p "Ever since I heard of this ultra-classic route, I wanted to
+                                       onsight it. However, as soon as I felt strong enough to do
+                                       so, that section of cliff was closed for peregrine falcon
+                                       nesting. So I wasn't able to lead it for most of 2018.")
+                                    (p "Finally, the peregrine falcon nesting closure was lifted,
+                                       and I was able to lead this route, but I had already
+                                       onsighted many climbs at the grade by this time, and even led
+                                       a few harder climbs. It wasn't the challenge I had originally
+                                       hoped it would be, but it was still an incredibly amazing
+                                       climb, which absolutely deserves its reputation as a
+                                       classic.")
+                                    (p "It was also rewarding to see how much I had grown as a
+                                       climber this summer. When I first dreamed of onsighting High
+                                       E, it was a challenging goal, but when I finally got to climb
+                                       it, it felt easy.")))
         ,(route #:name "Moonlight"
-               #:date (make-date-easy 2018 8 10)
-               #:quality 4
-               #:difficulty "5.6"
-               #:safety "PG13"
-               #:description '(div (p "Description")))
-       ,(route #:name "High Exposure"
-               #:date (make-date-easy 2018 8 20)
-               #:quality 4
-               #:difficulty "5.6"
-               #:description '(div (p "Description")))
-       ,(route #:name "First Day"
-               #:date (make-date-easy 2018 10 10)
-               #:quality 2
-               #:difficulty "5.7"
-               #:description '(div (p "Went via the left book. Maybe a bit soft for 5.7 this way.")))
-       ,(route #:name "Genuflect"
-               #:date (make-date-easy 2018 11 11)
-               #:quality 2
-               #:difficulty "5.6"
-               #:safety "PG"
-               #:description '(div (p "Description")))
-       ,(route #:name "Eyesore"
-               #:date (make-date-easy 2018 8 15)
-               #:quality 2
-               #:difficulty "5.7"
-               #:safety "PG"
-               #:description '(div (p "Quite the sandbag.")))
-       ,(route #:name "Sundance"
-               #:date (make-date-easy 2018 10 16)
-               #:quality 2
-               #:difficulty "5.6"
-               #:safety "PG"
-               #:description '(div (p "Description")))
-       ,(route #:name "Cool Hand Luke"
-               #:date (make-date-easy 2018 7 9)
-               #:quality 2
-               #:difficulty "5.6"
-               #:description '(div (p "First onsight at the grade.")))))
+                #:date (make-date-easy 2018 8 10)
+                #:quality 4
+                #:difficulty "5.6"
+                #:safety "PG13"
+                #:description '(div (p "At the time of this writing, (December 2018) this is my
+                                       favorite lead to date in the Gunks. Not only was this an
+                                       extraordinary climb, but it represented the culmination of
+                                       my work on my lead head this summer. The crux, frankly, is
+                                       terrifying, and while the physical difficulty of the route
+                                       was well within my capability when I led it, keeping calm
+                                       while executing the crux moves is probably my proudest
+                                       climbing achievement to date.")
+                                    (p "The crux of this route is a delicate blind step left around
+                                       an arete, after a significant traverse from your last piece
+                                       of gear. There are no good holds to save you; you have to
+                                       balance and trust your feet, while facing a large pendulum,
+                                       all while in a wildly exposed position that you have to look
+                                       down from in order to find your feet.")
+                                    (p "In addition to the objective and perceived hazards of the
+                                       crux to the leader, I also had to protect the follower from
+                                       a pendulum. To complicate matters, I encountered a nest of
+                                       yellow jackets between the crux and the last piece before
+                                       the crux. I carefully avoided disturbing the nest, and after
+                                       pulling the crux, I climbed up, placing gear and
+                                       back-cleaning it until I was high enough above the crux
+                                       traverse to reach out right and place a piece directly above
+                                       the crux. This meant that instead of a violent pendulum, my
+                                       follower would take a gentle swing on a top rope if they fell
+                                       at the crux. I'm glad I did this, because my follower was
+                                       stung by a yellow jacket and fell" (em "before") "the
+                                       crux! Due to my careful planning he was unhurt except for
+                                       the sting.")))
+        ,(route #:name "Cool Hand Luke"
+                #:date (make-date-easy 2018 7 9)
+                #:quality 2
+                #:difficulty "5.6"
+                #:description '(div (p "This was my first onsight at the grade. I've since found
+                                       that it's a bit difficult for 5.6, which I'm glad I didn't
+                                       know at the time.")))))
 
 (define other-leads
   `(div (@ (class "route-list"))
         ,(route #:name "Cat in the Hat"
-               #:date (make-date-easy 2018 4 8)
-               #:quality 4
-               #:difficulty "5.6"
-               #:safety "PG"
-               #:description '(div (p "Swapped leads.")))
-       ,(route #:name "Big Bad Wolf"
-               #:date (make-date-easy 2018 4 7)
-               #:quality 3
-               #:difficulty "5.9"
-               #:description '(div (p "Led the middle (5.8) pitch.")))
-       ,(route #:name "Madame Grunnebaum's Wulst"
-               #:date (make-date-easy 2018 9 30)
-               #:quality 3
-               #:difficulty "5.6"
-               #:safety "PG"
-               #:description '(div (p "Description")))
-       ,(route #:name "Shockley's Ceiling"
-               #:date (make-date-easy 2018 8 9)
-               #:quality 3
-               #:difficulty "5.6"
-               #:description '(div (p "Description")))
-       ,(route #:name "Baby"
-               #:date (make-date-easy 2018 10 10)
-               #:quality 3
-               #:difficulty "5.6"
-               #:safety "PG"
-               #:description '(div (p "Description")))
-       ,(route #:name "Bolt Line"
-               #:date (make-date-easy 2018 7 29)
-               #:quality 2
-               #:difficulty "5.8"
-               #:safety "PG"
-               #:description '(div (p "First attempt to onsight 5.8. I hung on the early crux, then re-attempted from the ground and got it.")))
-       ,(route #:name "City Lights"
-               #:date (make-date-easy 2018 6 19)
-               #:quality 2
-               #:difficulty "5.8"
-               #:safety "5.6PG13"
-               #:description '(div (p "First lead at the grade.")))
-       ,(route #:name "Beginner's Delight"
-               #:date (make-date-easy 2017 10 15)
-               #:quality 1
-               #:difficulty "5.4"
-               #:safety "R"
-               #:description '(div (p "First serious trad lead fall, a 30 footer onto a #3. Thanks LB for the catch!")))))
+                #:date (make-date-easy 2018 4 8)
+                #:quality 4
+                #:difficulty "5.6"
+                #:safety "PG"
+                #:description '(div (p "Swapped leads.")))
+        ,(route #:name "Big Bad Wolf"
+                #:date (make-date-easy 2018 4 7)
+                #:quality 3
+                #:difficulty "5.9"
+                #:description '(div (p "Led the middle (5.8) pitch.")))
+        ,(route #:name "Madame Grunnebaum's Wulst"
+                #:date (make-date-easy 2018 9 30)
+                #:quality 3
+                #:difficulty "5.6"
+                #:safety "PG"
+                #:description '(div (p "Description")))
+        ,(route #:name "Shockley's Ceiling"
+                #:date (make-date-easy 2018 8 9)
+                #:quality 3
+                #:difficulty "5.6"
+                #:description '(div (p "Description")))
+        ,(route #:name "Baby"
+                #:date (make-date-easy 2018 10 10)
+                #:quality 3
+                #:difficulty "5.6"
+                #:safety "PG"
+                #:description '(div (p "Description")))
+        ,(route #:name "Bolt Line"
+                #:date (make-date-easy 2018 7 29)
+                #:quality 2
+                #:difficulty "5.8"
+                #:safety "PG"
+                #:description '(div (p "First attempt to onsight 5.8. I hung on the early crux, then re-attempted from the ground and got it.")))
+        ,(route #:name "City Lights"
+                #:date (make-date-easy 2018 6 19)
+                #:quality 2
+                #:difficulty "5.8"
+                #:safety "5.6PG13"
+                #:description '(div (p "First lead at the grade.")))
+        ,(route #:name "Beginner's Delight"
+                #:date (make-date-easy 2017 10 15)
+                #:quality 1
+                #:difficulty "5.4"
+                #:safety "R"
+                #:description '(div (p "First serious trad lead fall, a 30 footer onto a #3. Thanks LB for the catch!")))))
 
 (define boulders
   `(div (@ (class "route-list"))
         ,(boulder-problem #:name "M4"
-                        #:date (make-date-easy 2018 12 11)
-                         #:quality 4
-                         #:difficulty "V2"
-                         #:description '(div (p "Description")))
-       ,(boulder-problem #:name "Suzie A"
-                        #:date (make-date-easy 2018 9 8)
-                         #:quality 4
-                         #:difficulty "V1"
-                         #:safety "PG13"
-                         #:description '(div (p "Description")))))
+                          #:date (make-date-easy 2018 12 11)
+                          #:quality 4
+                          #:difficulty "V2"
+                          #:description '(div (p "Description")))
+        ,(boulder-problem #:name "Suzie A"
+                          #:date (make-date-easy 2018 9 8)
+                          #:quality 4
+                          #:difficulty "V1"
+                          #:safety "PG13"
+                          #:description '(div (p "Description")))))
+
+(define redpoints-section
+  `(section (h2 "Redpoints")
+            (p "These are climbs that I spent a significant amount of time working on before I was able to lead climb them without falling.")
+            ,redpoints))
+
+(define onsights-section
+  `(section (h2 "Onsights")
+            (p "These are climbs that I climbed on the first try without beta and without weighting the rope.")
+            ,onsights))
+
+(define other-leads-section
+  `(section (h2 "Other leads")
+            (p "These are leads that I didn't redpoint or onsight, but are worth mentioning.")
+            ,other-leads))
+
+(define boulder-problems-section
+  `(section (h2 "Boulder problems")
+            (p "I'm not much of a boulderer, but here are a few boulder problems I've done.")
+            ,boulders))
 
 (define selected-leads
   `(section (h1 "Selected Leads")
             (p "This is an abridged list of the things I've climbed. I included climbs either because I'm proud of having lead them, or because they were memorable or enjoyable.")
-            (section (h2 "Redpoints")
-                     (p "These are climbs that I spent a significant amount of time working on before I was able to lead climb them without falling.")
-                     ,redpoints)
-            (section (h2 "Onsights")
-                     (p "These are climbs that I climbed on the first try without beta and without weighting the rope.")
-                     ,onsights)
-            (section (h2 "Other leads")
-                     (p "These are leads that I didn't redpoint or onsight, but are worth mentioning.")
-                     ,other-leads)
-            (section (h2 "Boulder problems")
-                     (p "I'm not much of a boulderer, but here are a few boulder problems I've done.")
-                     ,boulders)))
+            ,redpoints-section
+            ,onsights-section
+            ,other-leads-section
+            ,boulder-problems-section))
 
 
 (define (climbing-index-page site posts)
