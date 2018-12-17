@@ -16,19 +16,27 @@
 (define (stars count)
   `(span ,(map (lambda (_) star) (iota count))))
 
+(define (display-risky safety)
+  (if (or (equal? safety "G") (equal? safety "PG"))
+      " "
+      (string-append "(" safety ") ")))
+
 (define* (route #:key name difficulty (safety "G") quality description)
-         (if (or (equal? safety "G") (equal? safety "PG"))
-             `(section (h4 ,(stars quality) ,difficulty " " ,name) ,description)
-             `(section (h4 ,(stars quality) ,difficulty "(" ,safety ") " ,name) ,description)))
+         `(section (h4 ,(stars quality)
+                       ,difficulty
+                       ,(display-risky safety)
+                       ,name)
+                   ,description))
 
 (define* (boulder-problem #:key name difficulty (safety "G") quality description)
-         (if (or (equal? safety "G") (equal? safety "PG"))
-             `(section (h4 ,(stars quality) ,difficulty " " ,name) ,description)
-             `(section (h4 ,(stars quality) ,difficulty "(" ,safety ") " ,name) ,description)))
+         `(section (h4 ,(stars quality)
+                       ,difficulty
+                       ,(display-risky safety)
+                       ,name)
+                   ,description))
 
 (define redpoints
   `(section ,(route #:name "Psycho Crack Right"
-
                #:quality 4
                #:difficulty "5.8"
                #:safety "PG"
