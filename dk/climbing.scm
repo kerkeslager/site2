@@ -24,7 +24,7 @@
 (define external-link-svg (embed-svg "feather/external-link.svg"))
 
 (define (display-link-if-exists link)
-  (if (nil? link)
+  (if (eq? '() link)
       " "
       `(a (@ (href ,link)) ,external-link-svg)))
 
