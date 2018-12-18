@@ -168,58 +168,134 @@
                 #:date (make-date-easy 2018 7 9)
                 #:quality 2
                 #:difficulty "5.6"
-                #:description '(div (p "This was my first onsight at the grade. I've since found
-                                       that it's a bit difficult for 5.6, which I'm glad I didn't
-                                       know at the time.")))))
+                #:description '(div (p "This was my first onsight at the grade in the Gunks. I've
+                                       since found that it's a bit difficult for 5.6. I'm glad I
+                                       didn't know that at the time.")))))
 
 (define other-leads
   `(div (@ (class "route-list"))
-        ,(route #:name "Cat in the Hat"
-                #:date (make-date-easy 2018 4 8)
-                #:quality 4
-                #:difficulty "5.6"
-                #:safety "PG"
-                #:description '(div (p "Swapped leads.")))
-        ,(route #:name "Big Bad Wolf"
-                #:date (make-date-easy 2018 4 7)
-                #:quality 3
-                #:difficulty "5.9"
-                #:description '(div (p "Led the middle (5.8) pitch.")))
-        ,(route #:name "Madame Grunnebaum's Wulst"
-                #:date (make-date-easy 2018 9 30)
-                #:quality 3
-                #:difficulty "5.6"
-                #:safety "PG"
-                #:description '(div (p "Description")))
-        ,(route #:name "Shockley's Ceiling"
-                #:date (make-date-easy 2018 8 9)
-                #:quality 3
-                #:difficulty "5.6"
-                #:description '(div (p "Description")))
-        ,(route #:name "Baby"
-                #:date (make-date-easy 2018 10 10)
-                #:quality 3
-                #:difficulty "5.6"
-                #:safety "PG"
-                #:description '(div (p "Description")))
         ,(route #:name "Bolt Line"
                 #:date (make-date-easy 2018 7 29)
                 #:quality 2
                 #:difficulty "5.8"
                 #:safety "PG"
-                #:description '(div (p "First attempt to onsight 5.8. I hung on the early crux, then re-attempted from the ground and got it.")))
+                #:description '(div (p "This was my first attempt to onsight 5.8. I had only ever
+                                       led one 5.8 before (City Lights, which is a 5.8- at that) and
+                                       the style of this route is one I'm not extremely accustomed
+                                       to (lots of slopers), so in many ways this attempt was a
+                                       display of overconfidence. As a result, I hung on the early
+                                       crux. Nevertheless, I then re-attempted from the ground and
+                                       got it on the second try.")
+                                    (p "This route was longer than it looked from the ground, due
+                                       to a false top. Overall, the experience was a bit
+                                       demoralizing, but I did make it through, and it was a good
+                                       lesson in setting reasonable goals.")))
         ,(route #:name "City Lights"
                 #:date (make-date-easy 2018 6 19)
                 #:quality 2
                 #:difficulty "5.8"
-                #:safety "5.6PG13"
-                #:description '(div (p "First lead at the grade.")))
+                #:safety "5.5PG13"
+                #:description '(div (p "This was my first 5.8 lead, and ironically I led it before
+                                       my first 5.7, Reach Around, which I led the next day. I had
+                                       led Laurel before, which many people call 5.7 but felt 5.6
+                                       to me. City Lights has a move that most people would consider
+                                       5.8, but it's near the ground and very well protected,
+                                       which made this mentally easy to lead.")
+                                    (p "I followed this once, and instantly knew I would be able to
+                                       lead it, because I could easily get up to the crux and it
+                                       would just be one hard 5.8 move. I slightly underestimated
+                                       the 5.5 runouts later in the climb, but ultimately this was a
+                                       fairly accessible first 5.8 lead. While the crux itself was
+                                       5.8, other aspects of the climb made it overall easier than
+                                       many 5.7s I've climbed since.")))
+        ,(route #:name "Cat in the Hat"
+                #:date (make-date-easy 2018 4 8)
+                #:quality 4
+                #:difficulty "5.6"
+                #:safety "PG"
+                #:link "https://www.mountainproject.com/route/105732419/cat-in-the-hat"
+                #:description '(div (p "Did this in a group of three with LB and Brett. I led the
+                                       fourth pitch. Red Rocks 5.6 is easier than Gunks 5.6, but my
+                                       lead head was very bad at this point. I was too afraid to
+                                       extend my gear properly and ended up backing off my pitch due
+                                       to rope drag.  After letting a party of more experienced
+                                       climbers pass us, I attempted the pitch again successfully.")
+                                    (p "Despite the route being wonderful, I didn't really have a
+                                       fun time because I was down on myself for my less-than-stellar
+                                       performance. I spent a lot of the climb comparing myself to
+                                       my partners. Brett led the final (crux) pitch, which has a
+                                       delicate slab protected only by a well-run-out bolt.
+                                       Despairing that I'd ever be able to lead such things, I found
+                                       myself unable to solo the 4th-class scrambles above the route,
+                                       requiring my partners to belay me through much of the
+                                       low-risk/high-consequence terrain at the top. The extra time
+                                       this took caused us to run out of time before the topout
+                                       chimney, and we ended up retreating only a single pitch from
+                                       the summit. To make matters worse, I didn't give myself time
+                                       to recover mentally, and ended up backing off a lead of
+                                       Physical Graffiti (5.6) the next day having barely left the
+                                       ground.")
+                                    (p "Because of my failure here, this route was a very important
+                                       learning experience in my progression towards becoming a
+                                       better climber. Initially, I had to cut myself some slack and
+                                       stop comparing myself to other climbers. In the long run,
+                                       this route helped me realize that fear, not physical
+                                       strength, was holding me back. This caused me to seek out
+                                       routes that would challenge my lead head, culminating in my
+                                       lead of Moonlight (5.6PG13) four months later. My hardest
+                                       lead at the time of this writing (Psycho Crack Right 5.8)
+                                       is also a fairly heady lead, with insecure moves over some
+                                       pretty big falls (albeit safe ones into air). Neither
+                                       Moonlight nor Psycho Crack Right could have happened without
+                                       failing on Cat in the Hat and learning from my failure.")))
+        ,(route #:name "Big Bad Wolf"
+                #:date (make-date-easy 2018 4 7)
+                #:quality 3
+                #:difficulty "5.9"
+                #:description '(div (p "This is just a beautiful climb. It's not listed under my
+                                       onsights becuase I only led the middle (5.8) pitch.")))
         ,(route #:name "Beginner's Delight"
                 #:date (make-date-easy 2017 10 15)
                 #:quality 1
                 #:difficulty "5.4"
                 #:safety "R"
-                #:description '(div (p "First serious trad lead fall, a 30 footer onto a #3. Thanks LB for the catch!")))))
+                #:description '(div (p "Beginner's Delight was the setting for my first serious trad
+                                       lead fall. The fall occurred while I was liebacking up the
+                                       dihedral, when I attempted to pull out of the lieback into a
+                                       stem and my left foot slipped. Overconfident, I had run it
+                                       out a bit since the last piece, and anticipating the
+                                       traverse, I had doubly-extended the piece to reduce rope drag.
+                                       The result was a 30-foot fall onto a blue #3 C4.")
+                                    (p "Falling on this route is extremely ill-advised. Had I fallen
+                                       at the long, unprotected traverse, I would have pendulum-ed
+                                       into the corner, and I was lucky to have fallen in one of the
+                                       few places where the wall was vertical enough that the fall
+                                       was fairly clean. This is neither a beginner climb, nor
+                                       was I delighted.")
+                                    (p "After the fall, I lowered to the bottom of the pitch and
+                                       gathered my nerves. Feeling that if I didn't face my fears
+                                       then, it would be even more intimidating to climb the pitch,
+                                       I began a second foolhardy attempt. Luckily, I succeeded.
+                                       However, terrified on the traverse, I fixed a black tricam
+                                       in a flared crack in the traverse. Thinking that would be
+                                       the only way this marginal protection would hold.")
+                                    (p "Upon emerging unscathed from this lead still shaking with
+                                       adrenaline, I nervously babbled about my experience to a
+                                       neighboring belayer while belaying up my follower. He told me
+                                       that some people just quit after their first lead fall,
+                                       relating to me this tale:")
+                                    (p "\"A new leader the other day took a big whipper onto a purple
+                                       C4, and immediately asked to be lowered off the climb, saying
+                                       that he was never trad climbing again. I offered to retrieve
+                                       his gear, but he insisted that he would not be needing it. I
+                                       retrieved the gear anyway, but when I reached the ground, he
+                                       was gone, and nobody online claimed the gear when I posted
+                                       about it.\"")
+                                    (p "Hearing the climber's tale, I realized that despite my
+                                       terror, I wanted nothing more than to climb the next pitch.
+                                       So that was the moment I knew that I was going to be trad
+                                       climbing for a very long time.")
+                                    (p "Thanks LB for the catch!")))))
 
 (define boulders
   `(div (@ (class "route-list"))
