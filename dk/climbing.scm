@@ -303,13 +303,25 @@
                           #:date (make-date-easy 2018 12 11)
                           #:quality 4
                           #:difficulty "V2"
-                          #:description '(div (p "Description")))
+                          #:description '(div (p "I read the description of this boulder and knew I
+                                                 wanted to do it, but when I first saw the boulder,
+                                                 it looked too blank to be possible. It took a long
+                                                 time staring at the boulder and ticking footholds
+                                                 to find a way up the seemingly blank face. This
+                                                 route really forced me to flag and balance on
+                                                 single marginal footholds.")))
         ,(boulder-problem #:name "Suzie A"
                           #:date (make-date-easy 2018 9 8)
                           #:quality 4
                           #:difficulty "V1"
                           #:safety "PG13"
-                          #:description '(div (p "Description")))))
+                          #:description '(div (p "This imposing boulder and the line of chalky
+                                                 crimps leading up its vertical face had been
+                                                 lurking at the back of my mind for a while before
+                                                 I finally managed to send it. I had worked out the
+                                                 crux on my own, but backed down because the beta
+                                                 seemed unclear and the pad far away. Ivan talked
+                                                 me through the topout.")))))
 
 (define redpoints-section
   `(section (h2 "Redpoints")
