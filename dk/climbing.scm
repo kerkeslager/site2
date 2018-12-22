@@ -6,7 +6,11 @@
                #:use-module (srfi srfi-19)
                #:use-module (dk formats)
                #:use-module (dk svg)
-               #:export (climbing-index-page))
+               #:export (climbing-index-page
+                         climbing-redpoints-index-page
+                         climbing-onsights-index-page
+                         climbing-other-leads-index-page
+                         climbing-boulder-problems-index-page))
 
 (define (make-date-easy year month day)
   (make-date 0 0 0 0 day month year 0))
@@ -323,37 +327,73 @@
                                                  seemed unclear and the pad far away. Ivan talked
                                                  me through the topout.")))))
 
+(define (selected-leads header-tag)
+  `(section (,header-tag "Selected Leads")
+            (p "This is an abridged list of the things I've climbed. I included climbs either because I'm proud of having lead them, or because they were memorable or enjoyable.")
+            (nav (@ (class "subnav"))
+                 (a (@ (href "/climbing/redpoints/"))
+                    "Redpoints")
+                 (a (@ (href "/climbing/onsights/"))
+                    "Onsights")
+                 (a (@ (href "/climbing/other-leads/"))
+                    "Other leads")
+                 (a (@ (href "/climbing/boulder-problems/"))
+                    "Boulder problems"))))
+
 (define redpoints-section
-  `(section (h2 "Redpoints")
+  `(section ,(selected-leads 'h1)
+            (h2 "Redpoints")
             (p "These are climbs that I spent a significant amount of time working on before I was able to lead climb them without falling.")
             ,redpoints))
 
 (define onsights-section
-  `(section (h2 "Onsights")
+  `(section ,(selected-leads 'h1)
+            (h2 "Onsights")
             (p "These are climbs that I climbed on the first try without beta and without weighting the rope.")
             ,onsights))
 
 (define other-leads-section
-  `(section (h2 "Other leads")
+  `(section ,(selected-leads 'h1)
+            (h2 "Other leads")
             (p "These are leads that I didn't redpoint or onsight, but are worth mentioning.")
             ,other-leads))
 
 (define boulder-problems-section
-  `(section (h2 "Boulder problems")
+  `(section ,(selected-leads 'h1)
+            (h2 "Boulder problems")
             (p "I'm not much of a boulderer, but here are a few boulder problems I've done.")
             ,boulders))
 
-(define selected-leads
-  `(section (h1 "Selected Leads")
-            (p "This is an abridged list of the things I've climbed. I included climbs either because I'm proud of having lead them, or because they were memorable or enjoyable.")
-            ,redpoints-section
-            ,onsights-section
-            ,other-leads-section
-            ,boulder-problems-section))
+(define todos
+  `(section (h2 "Todos")
+            (p "This is a list of climbs I want to climb.")))
 
+(define climbing-index-content
+  `(section (h1 "Climbing")
+            ,(selected-leads 'h2)
+            ,todos))
 
 (define (climbing-index-page site posts)
   (make-page "climbing/index.html"
-             (with-layout haunt-theme site "Climbing" selected-leads)
+             (with-layout haunt-theme site "Climbing" climbing-index-content)
              sxml->html))
 
+(define (climbing-redpoints-index-page site posts)
+  (make-page "climbing/redpoints/index.html"
+             (with-layout haunt-theme site "Redpoints" redpoints-section)
+             sxml->html))
+
+(define (climbing-onsights-index-page site posts)
+  (make-page "climbing/onsights/index.html"
+             (with-layout haunt-theme site "Redpoints" onsights-section)
+             sxml->html))
+
+(define (climbing-other-leads-index-page site posts)
+  (make-page "climbing/other-leads/index.html"
+             (with-layout haunt-theme site "Redpoints" other-leads-section)
+             sxml->html))
+
+(define (climbing-boulder-problems-index-page site posts)
+  (make-page "climbing/boulder-problems/index.html"
+             (with-layout haunt-theme site "Redpoints" boulder-problems-section)
+             sxml->html))

@@ -31,6 +31,10 @@
       #:readers (list sxml-reader html-reader)
       #:builders (list index-page
                        climbing-index-page
+                       climbing-redpoints-index-page
+                       climbing-onsights-index-page
+                       climbing-other-leads-index-page
+                       climbing-boulder-problems-index-page
                        (static-directory "img")
                        (static-directory "css")
                        (static-directory "misc" "")
