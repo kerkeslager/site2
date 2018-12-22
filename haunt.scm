@@ -33,6 +33,7 @@
                        climbing-index-page
                        (static-directory "img")
                        (static-directory "css")
+                       (static-directory "misc" "")
                        (blog #:collections %collections #:prefix "blog/" #:theme haunt-theme)
                        (atom-feed)
                        (atom-feeds-by-tag)))
