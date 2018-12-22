@@ -12,6 +12,6 @@ maxretry = 30
 enabled = true
 filter = ban-urls
 action = iptables-multiport[name=BanUrls, port="http,https"]
+logpath = /var/log/nginx/*error.log
 maxretry = 1
 bantime = 60
-logpath = /var/log/nginx/*error.log
