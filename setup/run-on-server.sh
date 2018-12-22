@@ -21,6 +21,10 @@ sudo apt install -y python-certbot-nginx -t stretch-backports
 
 sudo certbot --nginx -d kerkeslager.com --redirect -n
 
+sudo apt install -y fail2ban
+sudo cp nginx-req-limit.conf /etc/fail2ban/filter.d/
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
 sudo apt install -y build-essential guile-2.0 guile-2.0-dev
 
 wget https://files.dthompson.us/haunt/haunt-0.2.4.tar.gz
