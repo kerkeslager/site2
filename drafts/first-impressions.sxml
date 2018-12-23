@@ -1,0 +1,16 @@
+(use-modules (haunt utils))
+
+(define (external-link href content)
+  `(a (@ (href ,href))
+      ,content))
+
+`((title . "First Impressions")
+  (date . ,(string->date* "2015-04-10 23:00"))
+  (tags "climbing" "philosophy")
+  (summary . "Just a test")
+  (content
+   ((h2 "First Impressions")
+		(p "(intro story about M4)")
+    (p "(permanence in politics)")
+    (p "(permanence online)")
+    (p "(be willing to change opinions of people and let them change their opinions)"))))
