@@ -10,7 +10,10 @@
                          climbing-redpoints-index-page
                          climbing-onsights-index-page
                          climbing-other-leads-index-page
-                         climbing-boulder-problems-index-page))
+                         climbing-boulder-problems-index-page
+                         climbing-lead-projects-page
+                         climbing-reserved-onsights-page
+                         climbing-boulder-projects-page))
 
 (define (make-date-easy year month day)
   (make-date 0 0 0 0 day month year 0))
@@ -364,14 +367,87 @@
             (p "I'm not much of a boulderer, but here are a few boulder problems I've done.")
             ,boulders))
 
-(define todos
-  `(section (h2 "Todos")
-            (p "This is a list of climbs I want to climb.")))
+(define (todos header-tag)
+  `(section (,header-tag "Todos")
+            (p "This is a list of climbs I am working on or want to climb. I try to pick projects
+               which inspire me or work on my weaknesses.")
+            (nav (@ (class "subnav"))
+                 (a (@ (href "/climbing/lead-projects/"))
+                    "Lead Projects")
+                 (a (@ (href "/climbing/reserved-onsights/"))
+                    "Reserved Onsights")
+                 (a (@ (href "/climbing/boulder-projects/"))
+                    "Boulder Projects"))))
+
+(define* (project #:key name difficulty)
+  `(p ,difficulty " " ,name))
+
+(define lead-projects
+  `(div (@ (class "route-list"))
+        ,(project #:name "Golden Dream"
+                  #:difficulty "5.9")
+        ,(project #:name "Son of Easy O"
+                  #:difficulty "5.8")
+        ,(project #:name "Birdland"
+                  #:difficulty "5.8")
+        ,(project #:name "Boston"
+                  #:difficulty "5.4PG13")))
+
+(define lead-projects-content
+  `(section ,(todos 'h1)
+            (h2 "Lead projects")
+            (p "Most of my projects so far have been in Peterskill, due to the top-rope-able nature
+               of the single-pitch cliffs. However, I'm moving away from this because Peterskill
+               closes in the winter, which is disappointing when I don't finish projects before the
+               crag closes for the winter.")
+            ,lead-projects))
+
+(define reserved-onsights
+  `(div (@ (class "route-list"))
+        ,(project #:name "Oscar and Charlie to Strictly from Nowhere Linkup"
+                  #:difficulty "5.7")
+        ,(project #:name "Keyhole"
+                  #:difficulty "5.7")
+        ,(project #:name "Miss Bailey"
+                  #:difficulty "5.7")
+        ,(project #:name "Wisecrack"
+                  #:difficulty "5.7")
+        ,(project #:name "Yellow Ridge"
+                  #:difficulty "5.7")
+        ,(project #:name "Credibility Gap"
+                  #:difficulty "5.6")
+        ,(project #:name "The Last Will Be First"
+                  #:difficulty "5.6")))
+
+(define reserved-onsights-content
+  `(section ,(todos 'h1)
+            (h2 "Reserved onsights")
+            (p "I've reserved some classic routes at each grade to onsight, to make
+               sure that I'm increasing my ability to onsight routes.")
+            ,reserved-onsights))
+
+(define boulder-projects
+  `(div (@ (class "route-list"))
+        ,(project #:name "The Lorax"
+                  #:difficulty "V3")
+        ,(project #:name "Dislocator Roof"
+                  #:difficulty "V2")
+        ,(project #:name "Keyhole Crack Right"
+                  #:difficulty "V1")
+        ,(project #:name "Clune Crank"
+                  #:difficulty "V1")))
+
+(define boulder-projects-content
+  `(section ,(todos 'h1)
+            (h2 "Boulder projects")
+            (p "I'm beginning to project some boulders. While bouldering isn't what inspires
+               me, I'm learning that it's the best way to get stronger at trad climbing.")
+            ,boulder-projects))
 
 (define climbing-index-content
   `(section (h1 "Climbing")
             ,(selected-leads 'h2)
-            ,todos))
+            ,(todos 'h2)))
 
 (define (climbing-index-page site posts)
   (make-page "climbing/index.html"
@@ -385,15 +461,30 @@
 
 (define (climbing-onsights-index-page site posts)
   (make-page "climbing/onsights/index.html"
-             (with-layout haunt-theme site "Redpoints" onsights-section)
+             (with-layout haunt-theme site "Onsights" onsights-section)
              sxml->html))
 
 (define (climbing-other-leads-index-page site posts)
   (make-page "climbing/other-leads/index.html"
-             (with-layout haunt-theme site "Redpoints" other-leads-section)
+             (with-layout haunt-theme site "Other leads" other-leads-section)
              sxml->html))
 
 (define (climbing-boulder-problems-index-page site posts)
   (make-page "climbing/boulder-problems/index.html"
-             (with-layout haunt-theme site "Redpoints" boulder-problems-section)
+             (with-layout haunt-theme site "Boulder Problems" boulder-problems-section)
+             sxml->html))
+
+(define (climbing-lead-projects-page site posts)
+  (make-page "climbing/lead-projects/index.html"
+             (with-layout haunt-theme site "Lead Projects" lead-projects-content)
+             sxml->html))
+
+(define (climbing-reserved-onsights-page site posts)
+  (make-page "climbing/reserved-onsights/index.html"
+             (with-layout haunt-theme site "Reserved Onsights" reserved-onsights-content)
+             sxml->html))
+
+(define (climbing-boulder-projects-page site posts)
+  (make-page "climbing/boulder-projects/index.html"
+             (with-layout haunt-theme site "Boulder Projects" boulder-projects-content)
              sxml->html))

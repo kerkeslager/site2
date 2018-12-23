@@ -87,6 +87,10 @@ p {
   margin-top: 1rem;
 }
 
+.route time {
+  margin-bottom: 0.2rem;
+}
+
 .route .stars {
   margin-right: 0.5rem;
 }
@@ -100,10 +104,6 @@ p {
   font-style: italic;
 }
 
-.route p:first-child {
-  margin-top: 0.2rem;
-}
-
-.route p:not(:first-child) {
+p:not(:first-of-type) {
   margin-top: 0.4rem;
 }

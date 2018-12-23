@@ -35,6 +35,9 @@
                        climbing-onsights-index-page
                        climbing-other-leads-index-page
                        climbing-boulder-problems-index-page
+                       climbing-lead-projects-page
+                       climbing-reserved-onsights-page
+                       climbing-boulder-projects-page
                        (static-directory "img")
                        (static-directory "css")
                        (static-directory "misc" "")
