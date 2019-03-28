@@ -57,6 +57,19 @@
 
 (define redpoints
   `(div (@ (class "route-list"))
+     ,(route #:name "Golden Locks"
+               #:date (make-date-easy 2019 1 16)
+               #:quality 4
+               #:difficulty "5.9"
+               #:safety "PG"
+               #:description '(div (p "This Tennessee Wall classic was the culmination of a week
+                                      of learning to crack climb. The Gunks, my home crag, doesn't
+                                      have many vertical cracks so I felt it was important to spend
+                                      some time learning crack climbing.")
+                                   (p "The crux for me, ironically, was the roof getting off the
+                                      ground. I must have fallen 30 times on a yellow Totem cam
+                                      behind a flake at the bottom. While cleaning the route, I
+                                      noticed the flake moves!")))
      ,(route #:name "Psycho Crack Right"
                #:date (make-date-easy 2018 10 22)
                #:quality 4
