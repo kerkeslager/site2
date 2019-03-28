@@ -11,6 +11,8 @@
   (content
    ((h2 "First Impressions")
 		(p "(intro story about M4)")
+    (p "(expand the idea to other things in own experience)")
+    (p "(fixed versus growth mindset)")
     (p "(permanence in politics)")
     (p "(permanence online)")
     (p "(be willing to change opinions of people and let them change their opinions)"))))
